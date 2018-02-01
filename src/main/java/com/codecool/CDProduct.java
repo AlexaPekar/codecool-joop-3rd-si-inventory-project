@@ -2,14 +2,14 @@ package com.codecool;
 
 public class CDProduct extends Product {
 
-    private int numOffTrack;
+    private int numOfTrack;
 
-    public CDProduct(String name, int price, int numOffTrack) {
+    public CDProduct(String name, int price, int numOfTrack) {
         super(name, price);
-        this.numOffTrack = numOffTrack;
+        this.numOfTrack = numOfTrack;
     }
 
-    public int getNumOffTrack() {
-        return numOffTrack;
+    public int getNumOfTrack() {
+        return numOfTrack;
     }
 }
