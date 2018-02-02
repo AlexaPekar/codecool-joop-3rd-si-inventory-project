@@ -1,5 +1,6 @@
 package com.codecool;
 
+import java.io.File;
 import java.util.Scanner;
 
 public class Main {
@@ -7,11 +8,18 @@ public class Main {
 
     private static Scanner scanner = new Scanner(System.in);
     private static StoreManager storeManager = new StoreManager();
+    private static PersistentStore persistentStore = new PersistentStore();
 
     public static void main(String[] args) {
 
-        storeManager.addStorage(new PersistentStore());
+        storeManager.addStorage(persistentStore);
 
+        persistentStore.setFileName("testProduct.xml");
+
+        File file = new File("testProduct.xml");
+        if (file.exists()) {
+            persistentStore.loadProducts();
+        }
         while (true) {
 
             System.out.println("(1) Add new product");

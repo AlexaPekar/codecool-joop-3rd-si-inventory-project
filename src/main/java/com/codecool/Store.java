@@ -16,18 +16,23 @@ import java.util.List;
 public abstract class Store implements StorageCapable {
 
     List<Product> products = new ArrayList<Product>();
+    String fileName;
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 
     public List<Product> getAllProduct() {
         return products;
     }
 
     public void storeCDProducts(String name, int price, int tracks) {
-        Product cd = new CDProduct(name, price, tracks);
+        Product cd = createProduct("CD", name, price, tracks);
         store(cd);
     }
 
     public void storeBookProduct(String name, int price, int pages) {
-        Product book = new BookProduct(name, price, pages);
+        Product book = createProduct("book", name, price, pages);
         store(book);
     }
 
@@ -40,7 +45,7 @@ public abstract class Store implements StorageCapable {
             TransformerFactory tf = TransformerFactory.newInstance();
             Transformer transformer = tf.newTransformer();
             DOMSource source = new DOMSource(document);
-            StreamResult result = new StreamResult(new File("products.xml"));
+            StreamResult result = new StreamResult(new File(this.fileName));
 
             Element store = document.createElement("Store");
             document.appendChild(store);
@@ -113,7 +118,7 @@ public abstract class Store implements StorageCapable {
 
     public List<Product> loadProducts() {
         try {
-            File xmlFile = new File("products.xml");
+            File xmlFile = new File(fileName);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document document = db.parse(xmlFile);
