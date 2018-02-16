@@ -14,9 +14,9 @@ public class Main {
 
         storeManager.addStorage(persistentStore);
 
-        persistentStore.setFileName("testProduct.xml");
+        persistentStore.setFileName("product.xml");
 
-        File file = new File("testProduct.xml");
+        File file = new File("product.xml");
         if (file.exists()) {
             persistentStore.loadProducts();
         }

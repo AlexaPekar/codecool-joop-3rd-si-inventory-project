@@ -13,9 +13,9 @@ public class CsvMain {
 
         storeManager.addStorage(persistentCsvStore);
 
-        persistentCsvStore.setFileName("testProduct.csv");
+        persistentCsvStore.setFileName("product.csv");
 
-        File file = new File("testProduct.csv");
+        File file = new File("product.csv");
         if (file.exists()) {
             persistentCsvStore.loadProducts();
         }
