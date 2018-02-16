@@ -1,6 +1,5 @@
 package com.codecool;
 
-import java.util.List;
 
 public class PersistentStore extends Store {
 

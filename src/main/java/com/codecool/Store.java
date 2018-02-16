@@ -1,6 +1,7 @@
 package com.codecool;
 
 import org.w3c.dom.*;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -22,14 +23,32 @@ public abstract class Store implements StorageCapable {
         this.fileName = fileName;
     }
 
+
     public List<Product> getAllProduct() {
         return products;
     }
+
+
+    protected abstract void storeProduct(Product product);
+
+
+    protected Product createProduct(String type, String name, int price, int size) {
+        if (type.equals("CD")) {
+            CDProduct newCd = new CDProduct(name, price, size);
+            return newCd;
+
+        } else {
+            BookProduct newBook = new BookProduct(name, price, size);
+            return newBook;
+        }
+    }
+
 
     public void storeCDProducts(String name, int price, int tracks) {
         Product cd = createProduct("CD", name, price, tracks);
         store(cd);
     }
+
 
     public void storeBookProduct(String name, int price, int pages) {
         Product book = createProduct("book", name, price, pages);
@@ -51,8 +70,7 @@ public abstract class Store implements StorageCapable {
             document.appendChild(store);
 
 
-
-            for (int i = 0; i < getAllProduct().size() ; i++) {
+            for (int i = 0; i < getAllProduct().size(); i++) {
                 if (getAllProduct().get(i) instanceof CDProduct) {
                     Element productElem = document.createElement("Product");
                     store.appendChild(productElem);
@@ -103,18 +121,6 @@ public abstract class Store implements StorageCapable {
         }
     }
 
-    protected abstract void storeProduct(Product product);
-
-    protected Product createProduct(String type, String name, int price, int size) {
-        if (type.equals("CD")) {
-            CDProduct newCd = new CDProduct(name, price, size);
-            return newCd;
-
-        } else {
-            BookProduct newBook = new BookProduct(name, price, size);
-            return newBook;
-        }
-    }
 
     public List<Product> loadProducts() {
         try {
